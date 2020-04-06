@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.zjitc.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="net.zjitc.pojo.Product" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="special_offer" property="specialOffer" jdbcType="INTEGER" />
+    <result column="imgurl" property="imgurl" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="product_time" property="productTime" jdbcType="TIMESTAMP" />
+    <result column="sales_volume" property="salesVolume" jdbcType="DOUBLE" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, price, special_offer, imgurl, description, cid, product_time, sales_volume,
+    platform, author
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.zjitc.pojo.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from products
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from products
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.zjitc.pojo.ProductExample" >
+    delete from products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.zjitc.pojo.Product" >
+    insert into products (id, name, price,
+      special_offer, imgurl, description,
+      cid, product_time, sales_volume,
+      platform, author)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
+      #{specialOffer,jdbcType=INTEGER}, #{imgurl,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+      #{cid,jdbcType=INTEGER}, #{productTime,jdbcType=TIMESTAMP}, #{salesVolume,jdbcType=DOUBLE},
+      #{platform,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.zjitc.pojo.Product" >
+    insert into products
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="specialOffer != null" >
+        special_offer,
+      </if>
+      <if test="imgurl != null" >
+        imgurl,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="productTime != null" >
+        product_time,
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="specialOffer != null" >
+        #{specialOffer,jdbcType=INTEGER},
+      </if>
+      <if test="imgurl != null" >
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="productTime != null" >
+        #{productTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesVolume != null" >
+        #{salesVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.zjitc.pojo.ProductExample" resultType="java.lang.Integer" >
+    select count(*) from products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update products
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.specialOffer != null" >
+        special_offer = #{record.specialOffer,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgurl != null" >
+        imgurl = #{record.imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.productTime != null" >
+        product_time = #{record.productTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.salesVolume != null" >
+        sales_volume = #{record.salesVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update products
+    set id = #{record.id,jdbcType=INTEGER},
+    name = #{record.name,jdbcType=VARCHAR},
+    price = #{record.price,jdbcType=DOUBLE},
+    special_offer = #{record.specialOffer,jdbcType=INTEGER},
+    imgurl = #{record.imgurl,jdbcType=VARCHAR},
+    description = #{record.description,jdbcType=VARCHAR},
+    cid = #{record.cid,jdbcType=INTEGER},
+    product_time = #{record.productTime,jdbcType=TIMESTAMP},
+    sales_volume = #{record.salesVolume,jdbcType=DOUBLE},
+    platform = #{record.platform,jdbcType=VARCHAR},
+    author = #{record.author,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.zjitc.pojo.Product" >
+    update products
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="specialOffer != null" >
+        special_offer = #{specialOffer,jdbcType=INTEGER},
+      </if>
+      <if test="imgurl != null" >
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="productTime != null" >
+        product_time = #{productTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume = #{salesVolume,jdbcType=DOUBLE},
+      </if>
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.zjitc.pojo.Product" >
+    update products
+    set name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      special_offer = #{specialOffer,jdbcType=INTEGER},
+      imgurl = #{imgurl,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=INTEGER},
+      product_time = #{productTime,jdbcType=TIMESTAMP},
+      sales_volume = #{salesVolume,jdbcType=DOUBLE},
+      platform = #{platform,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="productsMap" type="net.zjitc.pojo.Product">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="price" property="price"/>
+    <result column="special_offer" property="specialOffer"  />
+    <result column="description" property="description"/>
+    <result column="imgurl" property="imgurl"/>
+    <result column="platform" property="platform" />
+    <result column="author" property="author" />
+    <result column="cid" property="cid"/>
+    <association property="category" javaType="net.zjitc.pojo.Category">
+      <id column="c_id" property="id"/>
+      <result column="c_name" property="name"/>
+    </association>
+  </resultMap>
+
+  <select id="selectProductOrCategory" resultMap="productsMap">
+        SELECT p.id,p.name,p.price,p.imgurl,p.special_offer,p.description,p.platform,p.author,p.cid,c.id c_id,c.name c_name
+        FROM products p,`category`c
+        WHERE p.cid = c.id AND p.id=#{id}
+  </select>
+
+
+  <select id="findAllProductOrCategory" resultMap="productsMap">
+        SELECT p.id,p.name,p.price,p.imgurl,p.special_offer,p.description,p.platform,p.author,p.cid,c.id c_id,c.name c_name
+        FROM products p,`category`c
+        WHERE p.cid = c.id
+  </select>
+
+
+
+
+  <select id="searchByCondition" parameterType="net.zjitc.pojo.Condition" resultMap="productsMap" >
+    select p.*,c.id c_id,c.name c_name
+    from products p,
+    category c
+    <trim prefix="where" prefixOverrides="and">
+      <if test="id != null">and p.id like CONCAT ('%',#{id},'%')  </if>
+      <if test="name != null">and p.name like CONCAT ('%',#{name},'%')</if>
+      <if test="cid != null">and p.cid = #{cid}</if>
+      <if test="minprice != null and maxprice != null">
+        and p.price between #{minprice} and #{maxprice}
+      </if>
+      <if test="1==1">
+        and p.cid=c.id
+      </if>
+    </trim>
+  </select>
+
+
+  <update id="editProduct" parameterType="net.zjitc.pojo.Product">
+    update products
+    <set>
+      <if test="name != null">name=#{name},</if>
+      <if test="price != null">price=#{price},</if>
+      <if test="specialOffer != null">special_offer=#{specialOffer},</if>
+      <if test="platform != null">platform=#{platform},</if>
+      <if test="author != null">author=#{author},</if>
+      <if test="imgurl != null">imgurl=#{imgurl},</if>
+      <if test="description != null">description=#{description},</if>
+      <if test="cid != null">cid=#{cid}</if>
+    </set>
+    where id=#{id}
+  </update>
+
+
+</mapper>
