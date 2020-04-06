@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ <!--   <settings>
+        &lt;!&ndash; 打印SQL&ndash;&gt;
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>-->
+
+    <typeAliases>
+        <!-- 指定一个包名，MyBatis会在包名下搜索需要的JavaBean-->
+        <package name="net.zjitc.pojo"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- config params as the following -->
+            <property name="param1" value="value1"/>
+        </plugin>
+    </plugins>
+</configuration>
